@@ -30,12 +30,6 @@ public class NewTest {
 	  Thread.sleep(10000);
 	  WebElement input= driver.findElement(By.xpath(relativexpath));
 	  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//	  if (driver instanceof JavascriptExecutor) {
-//		  ((JavascriptExecutor)driver).executeScript("argument[0].style.border='3px solid green'", input);
-//	  }
-//	  String screenShotFile="C:\\Screenshots\\file.png";
-//	  Functions.seleniumScreenshot(driver, screenShotFile);
-//	  Reporter.log("<a href=\""+screenShotFile+"\">ScreenShot</a>");
 	  Reporter.log(String.valueOf(input.isDisplayed()));
 	  driver.quit();
 	  }
