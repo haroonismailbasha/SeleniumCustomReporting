@@ -12,21 +12,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class Functions {
-	public static void seleniumScreenshot(WebDriver webdriver,String fileWithPath) throws Exception{
-        TakesScreenshot scrShot =((TakesScreenshot)webdriver);
-                File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
-                File DestFile=new File(fileWithPath);
-                FileUtils.copyFile(SrcFile, DestFile);
+	public static void seleniumScreenshot(WebDriver webdriver, String fileWithPath) throws Exception {
+		TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
+		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+		File DestFile = new File(fileWithPath);
+		FileUtils.copyFile(SrcFile, DestFile);
 
-    }
-	public static boolean checkElementExists(WebDriver driver,String baseUrl,String relativeXpath) {
+	}
+
+	public static boolean checkElementExists(WebDriver driver, String baseUrl, String relativeXpath) {
 		driver.get(baseUrl);
-		WebElement input= driver.findElement(By.xpath(relativeXpath));
+		WebElement input = driver.findElement(By.xpath(relativeXpath));
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return input.isDisplayed();
 	}
-	
+
 	public static String returnAString(String MyName) {
 		return MyName;
 	}
+
 }
