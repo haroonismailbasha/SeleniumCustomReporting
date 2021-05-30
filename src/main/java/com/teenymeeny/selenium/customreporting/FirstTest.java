@@ -21,7 +21,7 @@ import org.testng.annotations.BeforeTest;
 public class FirstTest implements ITestListener {
 
 	public static String baseUrl = "";
-	PageObjectReference pageReference = new PageObjectReference();
+	PageObjectReferenceFramework pageReference = new PageObjectReferenceFramework();
 	public WebDriver driver;
 
 	@Test
