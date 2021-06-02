@@ -80,8 +80,10 @@ public class Functions {
 	 **/
 	public static Properties getProperties(String propertiesPath) throws FileNotFoundException, IOException {
 		Properties properties=new Properties();
-		properties.load(new FileReader(new File("")));
+		properties.load(new FileReader(new File(propertiesPath)));
 		return properties;
 	}
+	
+	
 
 }
