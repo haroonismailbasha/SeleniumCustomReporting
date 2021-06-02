@@ -21,7 +21,7 @@ import org.testng.annotations.BeforeTest;
 public class FirstTest implements ITestListener {
 
 	public static String baseUrl = "";
-	PageObjectReferenceFramework pageReference = new PageObjectReferenceFramework();
+	PageObjectReference pageReference = new PageObjectReference();
 	public WebDriver driver;
 
 	@Test
@@ -40,6 +40,13 @@ public class FirstTest implements ITestListener {
 		String screenShotFile = "C:\\Screenshots\\file.png";
 		Functions.seleniumScreenshot(driver, screenShotFile);
 		Reporter.log("<a href=\"" + screenShotFile + "\">ScreenShot</a>");
+		driver.switchTo().frame(0).getTitle();
+		
+		Functions.clickElement(driver, pageReference.firstName, 2, 2);
+		Functions.enterText(driver, pageReference.firstName, "", 0, 0);
+		
+
+		System.exit(1);
 
 	}
 
