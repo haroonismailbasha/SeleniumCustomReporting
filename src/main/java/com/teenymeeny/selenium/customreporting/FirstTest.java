@@ -27,12 +27,21 @@ public class FirstTest implements ITestListener {
 	@Test
 	public void TC001_Enter_Member_Details() throws Exception {
 		Reporter.log(baseUrl);
-
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement firstNameElement = driver.findElement(pageReference.firstName);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		firstNameElement.sendKeys("Testing");
+		Thread.sleep(5000);
+		// Line 30-34 can be replaced with below function
+		Functions.enterText(driver, pageReference.firstName, "", 10, 5);
+		
+		//Similarly can use below function to click element
+		Functions.clickElement(driver, pageReference.firstName, 10, 5);	
+		
+		
 		WebElement lastName = driver.findElement(pageReference.lastName);
 		assertEquals(true, firstNameElement.isDisplayed());
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].style.border='4px solid red'", firstNameElement);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -41,10 +50,7 @@ public class FirstTest implements ITestListener {
 		Functions.seleniumScreenshot(driver, screenShotFile);
 		Reporter.log("<a href=\"" + screenShotFile + "\">ScreenShot</a>");
 		driver.switchTo().frame(0).getTitle();
-		
-		Functions.clickElement(driver, pageReference.firstName, 2, 2);
-		Functions.enterText(driver, pageReference.firstName, "", 0, 0);
-		
+
 
 		System.exit(1);
 
@@ -52,7 +58,7 @@ public class FirstTest implements ITestListener {
 
 	@AfterMethod
 	public void afterMethod(ITestResult result) {
-		
+
 		if (ITestResult.SUCCESS == result.getStatus()) {
 			System.out.println("Success");
 		} else if (ITestResult.FAILURE == result.getStatus()) {
