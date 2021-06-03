@@ -32,7 +32,7 @@ public class FirstTest implements ITestListener {
 		firstNameElement.sendKeys("Testing");
 		Thread.sleep(5000);
 		// Line 30-33 can be replaced with below function
-		Functions.enterText(driver, pageReference.firstName, "", 10, 5);
+		Functions.enterText(driver, pageReference.firstName, "Testing", 10, 5);
 		
 		//Similarly can use below function to click element
 		Functions.clickElement(driver, pageReference.firstName, 10, 5);	
