@@ -27,12 +27,11 @@ public class FirstTest implements ITestListener {
 	@Test
 	public void TC001_Enter_Member_Details() throws Exception {
 		Reporter.log(baseUrl);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement firstNameElement = driver.findElement(pageReference.firstName);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		firstNameElement.sendKeys("Testing");
 		Thread.sleep(5000);
-		// Line 30-34 can be replaced with below function
+		// Line 30-33 can be replaced with below function
 		Functions.enterText(driver, pageReference.firstName, "", 10, 5);
 		
 		//Similarly can use below function to click element
