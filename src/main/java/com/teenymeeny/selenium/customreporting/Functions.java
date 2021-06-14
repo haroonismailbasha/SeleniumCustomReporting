@@ -84,7 +84,6 @@ public class Functions {
 	 * @return void test-output reports folder is renamed
 	 **/
 	public static void renameReportsFolder() throws IOException {
-		System.out.println(System.getProperty("user.dir")+"\\test-output");
 		Path sourceFilePath=Paths.get(System.getProperty("user.dir")+"\\test-output");
 		Path targetFilePath=Paths.get(System.getProperty("user.dir")+"\\REFLEXIS_AUTOMATION_"+getDateTimeStamp());
 		Files.move(sourceFilePath, targetFilePath);
@@ -97,7 +96,6 @@ public class Functions {
 	 **/
 	public static String getDateTimeStamp() {
 		String timeStamp = (new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()).replace(".", "-"));
-		System.out.println("timeStamp "+ timeStamp);
 		return timeStamp;
 		
 	}
