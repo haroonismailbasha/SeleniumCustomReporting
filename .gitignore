@@ -1,5 +1,8 @@
 .gitignore
 
+tm/
+SeleniumExceptions.java
+
 ##############################
 ## Java
 ##############################

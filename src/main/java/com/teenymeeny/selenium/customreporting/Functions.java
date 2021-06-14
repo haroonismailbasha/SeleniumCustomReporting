@@ -4,16 +4,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Reporter;
+
+import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
 
 public class Functions {
 	public static void seleniumScreenshot(WebDriver webdriver, String fileWithPath) throws Exception {
@@ -23,6 +32,16 @@ public class Functions {
 		FileUtils.copyFile(SrcFile, DestFile);
 
 	}
+	
+	public static void beforeSuiteMethod() {
+		System.out.println("Creation of file before test suite");
+		File checkAccess=new File("Filecheck.txt");
+		if(checkAccess.isFile()) {
+			System.out.println("File created");
+		}
+	}
+	
+	
 	/**
 	 * @author haroon  
 	 * @Date 06/02/2021
@@ -31,11 +50,13 @@ public class Functions {
 	 * @param pageObjectElement page object reference
 	 * @return true or false 
 	 **/
-	public static boolean checkElementExists(WebDriver driver, String baseUrl,By pageObjectElement) {
+	public static boolean checkElementExists(WebDriver driver, String baseUrl,By pageObjectElement) throws SeleniumExceptions {
 		driver.get(baseUrl);
-		WebElement input = driver.findElement(pageObjectElement);
+		WebElement input=null;
+		input = driver.findElement(pageObjectElement);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return input.isDisplayed();
+		
 	}
 	
 	
@@ -55,6 +76,33 @@ public class Functions {
 		Thread.sleep(sleepTimeInSeconds*1000);
 		
 	}
+	
+	
+	/**
+	 * @author haroon 
+	 * @Date 06/13/2021
+	 * @return void test-output reports folder is renamed
+	 **/
+	public static void renameReportsFolder() throws IOException {
+		System.out.println(System.getProperty("user.dir")+"\\test-output");
+		Path sourceFilePath=Paths.get(System.getProperty("user.dir")+"\\test-output");
+		Path targetFilePath=Paths.get(System.getProperty("user.dir")+"\\REFLEXIS_AUTOMATION_"+getDateTimeStamp());
+		Files.move(sourceFilePath, targetFilePath);
+	}
+	
+	/**
+	 * @author haroon 
+	 * @Date 06/13/2021
+	 * @return 24 hours time in yyyy-MM-dd-HH-mm-ss format
+	 **/
+	public static String getDateTimeStamp() {
+		String timeStamp = (new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()).replace(".", "-"));
+		System.out.println("timeStamp "+ timeStamp);
+		return timeStamp;
+		
+	}
+	
+	
 	
 	/**
 	 * @author haroon 
@@ -82,6 +130,28 @@ public class Functions {
 		Properties properties=new Properties();
 		properties.load(new FileReader(new File(propertiesPath)));
 		return properties;
+	}
+	
+	
+	public static void checkingException(WebDriver driver,By pageObjectElement) throws SeleniumExceptions {
+		WebElement we=null;
+		try {
+			we=driver.findElement(pageObjectElement);
+		}
+		catch(Exception ex) {
+			throw new SeleniumExceptions("Test");
+		}
+	}
+	
+	
+	
+	public static void screenShot(WebDriver driver,WebElement webelement, String fileName,String screenshotPath) throws Exception {
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        jse.executeScript("arguments[0].style.border='4px solid red'", webelement);
+        String screenShotFile = screenshotPath +fileName+".png";
+        seleniumScreenshot(driver, screenShotFile);
+        Reporter.log("<a href=\"" + screenShotFile + "\">ScreenShot</a>");
 	}
 	
 	
